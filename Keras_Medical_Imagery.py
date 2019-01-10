@@ -5,12 +5,14 @@ import random
 import shutil
 import os
 
+###-----------------Configuring the model brah-------------------------------------####
+
 # initialize the path to the *original* input directory of images
-ORIG_INPUT_DATASET = "malaria/cell_images"
+ORIG_INPUT_DATASET = r"C:\Users\reil\Desktop\keras_medical\malaria\cell_images"
 
 # initialize the base path to the *new* directory that will contain
 # our images after computing the training and testing split
-BASE_PATH = "malaria"
+BASE_PATH = r"C:\Users\reil\Desktop\keras_medical\malaria"
 
 # derive the training, validation, and testing directories
 TRAIN_PATH = os.path.sep.join([BASE_PATH, "training"])
@@ -24,27 +26,31 @@ TRAIN_SPLIT = 0.8
 # *training* data
 VAL_SPLIT = 0.1
 
+###-------------------------------------------------------------------------------####
+
+###------------------------Setting up training, testing, and validation folders-----###
+
 # grab the paths to all input images in the original input directory
 # and shuffle them
-imagePaths = list(paths.list_images(config.ORIG_INPUT_DATASET))
+imagePaths = list(paths.list_images(ORIG_INPUT_DATASET))
 random.seed(42)
 random.shuffle(imagePaths)
 
 # compute the training and testing split
-i = int(len(imagePaths) * config.TRAIN_SPLIT)
+i = int(len(imagePaths) * TRAIN_SPLIT)
 trainPaths = imagePaths[:i]
 testPaths = imagePaths[i:]
 
 # we'll be using part of the training data for validation
-i = int(len(trainPaths) * config.VAL_SPLIT)
+i = int(len(trainPaths) * VAL_SPLIT)
 valPaths = trainPaths[:i]
 trainPaths = trainPaths[i:]
 
 # define the datasets that we'll be building
 datasets = [
-	("training", trainPaths, config.TRAIN_PATH),
-	("validation", valPaths, config.VAL_PATH),
-	("testing", testPaths, config.TEST_PATH)
+	("training", trainPaths, TRAIN_PATH),
+	("validation", valPaths, VAL_PATH),
+	("testing", testPaths, TEST_PATH)
 ]
 
 # loop over the datasets
@@ -76,3 +82,5 @@ for (dType, imagePaths, baseOutput) in datasets:
 		# the image itself
 		p = os.path.sep.join([labelPath, filename])
 		shutil.copy2(inputPath, p)
+
+####----------------------------------------------------------------------------------####
