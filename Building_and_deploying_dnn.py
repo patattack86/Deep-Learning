@@ -1,3 +1,6 @@
+## This code is intended to train a nueural net to predict video game prices based on a series of attributes. Currently getting an error 
+## concerning incompatible shapes. No clue how to solve it yet 
+
 import os
 import tensorflow as tf
 import pandas as pd
